@@ -11,6 +11,13 @@ public class EnemyController : MonoBehaviour
     public Rigidbody2D rb;
 
     public float moveSpeed = 1f;
+
+    public bool shouldShoot;
+    public float fireRate = .5f;
+    private float shotCounter;
+    public GameObject bullet;
+    public Transform firePoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +31,19 @@ public class EnemyController : MonoBehaviour
         {
             Vector3 playerDirection = PlayerController.instance.transform.position - transform.position;
             rb.velocity = playerDirection.normalized * moveSpeed;
+            if (shouldShoot)
+            {
+                shotCounter -= Time.deltaTime;
+                if (shotCounter <= 0)
+                {
+                    Instantiate(bullet, firePoint.position, firePoint.rotation);
+                    shotCounter = fireRate;
+                }
+            }
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
         }
     }
 

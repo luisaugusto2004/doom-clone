@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class AmmoPickup : MonoBehaviour
+public class HealthPickup : MonoBehaviour
 {
-    public int ammoAmount = 15;
+    public int healthAmount = 20;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +22,7 @@ public class AmmoPickup : MonoBehaviour
     {
         if (col.tag == "Player")
         {
-            PlayerController.instance.currentAmmo += ammoAmount;
-            PlayerController.instance.UpdateAmmoUI();
+            PlayerController.instance.AddHealth(healthAmount);
             Destroy(gameObject);
         }
     }
